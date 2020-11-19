@@ -26129,7 +26129,7 @@ var render = function() {
                         "button",
                         {
                           staticClass:
-                            "bg-orange-300 py-2 px-4 text-white rounded my-2 block",
+                            "bg-violet-300 py-2 px-4 text-white rounded my-2 block",
                           on: {
                             click: function($event) {
                               $event.preventDefault()
