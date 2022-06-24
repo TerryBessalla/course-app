@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<button class="bg-green-500 rounded px-2 py-2 text-white" @click="progression()">
+		<button class="bg-green-500 rounded px-2 py-2 text-white focous:outline-none" @click="progression()">
 			{{ isWatched ? 'Deja regardé'  : 'Terminé' }}
 		</button>
 	</div>

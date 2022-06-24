@@ -14,6 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        'App\Models\Cours'=>'App\Policies\CoursPolicy'
     ];
 
     /**
@@ -24,6 +25,10 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        Gate::define('update-cours',function($cours){
+            return $cours->user_id==auth()->user()->id;
+        });
 
         //
     }

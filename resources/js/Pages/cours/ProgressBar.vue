@@ -24,7 +24,8 @@
 		},	
 		mounted(){
 			eventBus.$on('progression',data=>this.watchedEp=data);
+			console.log(this.watched,this.episodes);
+			
 		}
-
 	}
 	</script>

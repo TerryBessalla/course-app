@@ -1,65 +1,70 @@
 <template>
 	<app-layout>
-		<template #header>
+		<template slot="header">
 			  <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ cours.title  }}
+              {{cours.title}}
             </h2>
-			
 		</template>
-		<div class="container p-4">
-			<h1 class="font-semibold text-xl text-gray-800 leading-tight">{{ cours.episodes[this.index].title }}</h1>
-			<div class="flex justify-around">
-				<iframe width="800" height="400" class="border-4 " :src="cours.episodes[this.index].video_url" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-			</div>
-			<p>{{ cours.episodes[this.index].description }}</p>
-			<div class="py-6">
-				<progress-bar :watched='watched' :episodes='cours.episodes'/>
-			</div>
-				<ul v-for="(episode,index) in this.courshow.episodes" :key="episode.id">
-					<li class="flex justify-between items-center mt-3">
-						<div >
-						Episode {{ index }}: {{ episode.title }} <button class="text-gray-400 focus:text-indigo-500 hover:text-indigo-500 focus:outline-none" @click="switchEpisode(index)">Voir Episode</button></div><ProgressButton :episode-id="episode.id" :watched="watched"/></li>
-					
-				</ul>
-		</div>
 
-		
+		<div class="py-4">
+				<div class="text-2xl mb">{{ cours.episodes[this.currentKey].title }}</div>
+				<iframe class="w-full h-screen" :src='cours.episodes[this.currentKey].video_url' frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+				<div class="text-sm text-gray-500">{{ cours.episodes[this.currentKey].description }}</div>
+				<div class="py-6">
+					<ProgressBar :watched="watched" :episodes="cours.episodes"></ProgressBar>
+				</div>
+				
+				<div class="m-3">
+					<h2 class="text-xl border-3">Liste des epiosdes</h2>
+					<ul class="flex justify-between" v-for="(episode,index) in this.cours.episodes" v-bind:key="episode.id">
+						<li class="mt-3 mb-2 ">n°{{ index+1 }}--{{ episode.title }}  <button class="text-gray-700 inline focus:text-indigo-500 focus:outline-none"  
+						@click="switchEpisode(index)">Voir l'episode</button></li>
+						<ProgressButton :episode-id="episode.id" :watched="watched" />
+					</ul>
+			</div>
+		</div>
 	</app-layout>
 </template>
 
 
 <script>
 
-import AppLayout from "../../Layouts/AppLayout";
+import AppLayout from "./../../Layouts/AppLayout";
 import ProgressButton from "./ProgressButton";
 import ProgressBar from "./ProgressBar";
 
 export default{
+
+		props:['cours','watched'],
+
 		components:{
 			AppLayout,
 			ProgressButton,
 			ProgressBar
 		},
-		props:['cours','watched'],
+
 		data(){
 			return{
-			courshow:this.cours,
-			index:0
+			cours:this.cours,
+			currentKey:1
+
 		}
 		},
 
 		methods:{
-			switchEpisode(index){
-				this.index=index;
+
+			switchEpisode(index) 
+			{
+				this.currentKey = index;
 
 				window.scrollTo({
-					top:0,
+					top:0, 
 					left:0,
-					behavior: 'smooth'
+					behavior:"smooth"
 				});
-
 			}
-		}
-		
+		},
+
+
 	}
 </script>
